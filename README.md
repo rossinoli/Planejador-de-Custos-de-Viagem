@@ -93,7 +93,6 @@ Para executar este projeto localmente, você precisará ter o Node.js, npm e a I
 ## Agradecimentos
 
 *   [Opcional: Agradeça a professores, mentores, colegas ou comunidades que ajudaram.]
-*   Agradecimento pela inspiração na estrutura da documentação do projeto Calculadora-Multi-Funcional.
 
 ## Licença
 
