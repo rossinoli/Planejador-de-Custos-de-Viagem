@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="success"> 
+    <ion-title>Atrações e Extras</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>Atrações Turísticas</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-input
+        label="Número de Atrações Planejadas"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 5"
+        [(ngModel)]="attractionsCount"
+        (ionInput)="onAttractionInputChange()"
+        min="0">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Custo Médio por Atração (R$)"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 80.00"
+        [(ngModel)]="attractionCost"
+        (ionInput)="onAttractionInputChange()"
+        min="0"
+        step="0.01">
+      </ion-input>
+       <ion-note slot="end">R$</ion-note>
+    </ion-item>
+
+   
+    <ion-item lines="none" *ngIf="calculatedAttractionsCost > 0">
+       <ion-label color="medium">Custo Estimado (Atrações):</ion-label>
+       <ion-note slot="end" color="success" style="font-size: 1.1em; font-weight: bold;">
+         {{ calculatedAttractionsCost | currency:'BRL':'symbol':'1.2-2' }}
+       </ion-note>
+    </ion-item>
+
+   
+     <ion-item-divider>
+       <ion-label>Custos Extras / Imprevistos</ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+      
+      <ion-segment [(ngModel)]="extraType" (ionChange)="onExtraTypeChange()" mode="md">
+        <ion-segment-button value="fixed">
+          <ion-label>Valor Fixo</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="percentage">
+          <ion-label>Porcentagem</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+
+    
+    <ion-item *ngIf="extraType"> 
+      <ion-input
+        [label]="extraType === 'fixed' ? 'Valor Extra Fixo (R$)' : 'Porcentagem Extra (%)'"
+        labelPlacement="stacked"
+        type="number"
+        [placeholder]="extraType === 'fixed' ? 'Ex: 300.00' : 'Ex: 10'"
+        [(ngModel)]="extraValue"
+        min="0"
+        [step]="extraType === 'fixed' ? '0.01' : '1'"> 
+      </ion-input>
+     
+       <ion-note slot="end" *ngIf="extraType === 'fixed'">R$</ion-note>
+       <ion-note slot="end" *ngIf="extraType === 'percentage'">%</ion-note>
+    </ion-item>
+
+
+    <ion-item lines="none" *ngIf="extraType === 'percentage'">
+        <ion-label class="ion-text-wrap" color="medium" style="font-size: 0.8em;">
+            A porcentagem será calculada sobre o subtotal de Transporte, Hospedagem, Alimentação e Atrações.
+        </ion-label>
+    </ion-item>
+
+
+  </ion-list> 
+
+  <ion-button
+    expand="block"
+    color="success"
+    (click)="saveAndClose()">
+    <ion-icon slot="start" name="save-outline"></ion-icon>
+    Salvar Atrações e Extras
+  </ion-button>
+
+</ion-content> 

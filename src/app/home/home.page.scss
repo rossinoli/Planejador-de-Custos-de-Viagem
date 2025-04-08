@@ -1,0 +1,21 @@
+ion-card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+ion-note {
+  font-size: 1em;
+}
+
+.total-item ion-label {
+  font-size: 1.1em;
+}
+
+.total-item ion-chip strong {
+   font-size: 1.2em;
+}
+
+// Ajuste o padding dos botões se necessário
+ion-grid ion-button {
+  margin-top: 10px;
+}

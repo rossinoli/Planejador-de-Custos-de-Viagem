@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Custo de Alimentação</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Número de Dias da Viagem"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 10"
+        [(ngModel)]="days"
+        (ionInput)="onInputChange()"
+        min="1">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Número de Pessoas"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 2"
+        [(ngModel)]="people"
+        (ionInput)="onInputChange()"
+        min="1">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Refeições por Dia (média)"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 3 (café, almoço, jantar)"
+        [(ngModel)]="mealsPerDay"
+        (ionInput)="onInputChange()"
+        min="1">
+      </ion-input>
+      <ion-note slot="helper">Considere quantas refeições pagas você fará por dia.</ion-note>
+    </ion-item>
+
+    <ion-item>
+       <ion-input
+        label="Custo Médio por Refeição (por pessoa)"
+        labelPlacement="stacked"
+        type="number"
+        placeholder="Ex: 45.00"
+        [(ngModel)]="costPerMeal"
+        (ionInput)="onInputChange()"
+        min="0.01"
+        step="0.01">
+      </ion-input>
+      <ion-note slot="end">R$</ion-note>
+    </ion-item>
+
+    <ion-item lines="full" *ngIf="calculatedCost > 0">
+       <ion-label color="medium">Custo Estimado:</ion-label>
+       
+       <ion-note slot="end" color="warning" style="font-size: 1.1em; font-weight: bold;">
+         {{ calculatedCost | currency:'BRL':'symbol':'1.2-2' }}
+       </ion-note>
+      
+    </ion-item>
+     <ion-item lines="none" *ngIf="calculatedCost <= 0 && (days || people || mealsPerDay || costPerMeal)">
+        <ion-label color="medium">Insira valores válidos para calcular.</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button
+    expand="block"
+    color="warning"
+    (click)="saveAndClose()"
+    [disabled]="calculatedCost <= 0">
+     <ion-icon slot="start" name="save-outline"></ion-icon>
+    Salvar Custo de Alimentação
+  </ion-button>
+
+</ion-content>
